@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0%;
+        }
+
+        #header {
+            transition: 0.2s linear;
+        }
+
+        #header img {
+            width: 100%;
+            transform: translateY(-50px);
+        }
+
+        #content {
+            width: 100%;
+            height: 3000px;
+            background: white;
+            opacity: 1;
+            transform: translateY(-180px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <img src="Miji_My_Neighbor.jpg" alt="Miji_My_Neighbor">
+    </div>
+
+    <div id="content">
+
+    </div>
+    <script>
+        var WindowCustomEventsModule = (function () {
+            var _scrollEndTimeout = 10;
+            var _delayedExec = function (callback) {
+                var timer;
+                return function () {
+                    timer && clearTimeout(timer);
+                    timer = setTimeout(callback, _scrollEndTimeout);
+                }
+            };
+            var onScrollEnd = function (callback) {
+                window.addEventListener('scroll', _delayedExec(callback), false);
+            };
+            return {
+                onScrollEnd: onScrollEnd
+            }
+        })();
+
+        WindowCustomEventsModule.onScrollEnd(function () {
+            let value = document.body.scrollTop || document.documentElement.scrollTop;
+            console.log(document.body.scrollTop || document.documentElement.scrollTop);
+            if (value <= 600) {
+                let img = document.getElementById("header");
+                img.style.transform = `translateY(${value * 0.1 * -1}px)`;
+            }
+        });
+    </script>
+</body>
+
+</html>
